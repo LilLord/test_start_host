@@ -3,7 +3,7 @@ import logging
 import sys
 import threading
 import time
-
+import streamlit as st
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
@@ -53,6 +53,9 @@ def start():
     asyncio.run(main())
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    loop = asyncio.get_event_loop()
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    loop.run_until_complete(dp.start_polling(bot, loop=loop))
+    with st.empty:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+        loop.run_until_complete(dp.start_polling(bot, loop=loop))
+        loop.close()
