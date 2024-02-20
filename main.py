@@ -43,24 +43,13 @@ async def echo_handler(message: types.Message) -> None:
         # But not all the types is supported to be copied so need to handle it
         await message.answer("Nice try!")
 
-def schedule_control():
-    while True:
-        print("dsada")
-        time.sleep(1)
-        
-
-def start_schedule_controller():
-    threading.Thread(target=schedule_control, daemon=True).start()
-    
-
 async def main() -> None:
+    # Initialize Bot instance with a default parse mode which will be passed to all API calls
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    await bot.delete_webhook(drop_pending_updates=True)
-    dp.startup.register(start_schedule_controller)
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    # And the run events dispatching
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    asyncio.run(dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types()))
+    asyncio.run(main())
