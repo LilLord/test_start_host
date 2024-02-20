@@ -13,7 +13,7 @@ from aiogram.utils.markdown import hbold
 # Bot token can be obtained via https://t.me/BotFather
 TOKEN = "6050835358:AAFhyCX-Sb2HNlajHr2VdV8XVpMLkA8I7BE"
 # All handlers should be attached to the Router (or Dispatcher)
-dp = Dispatcher()
+dp = Router()
 
 
 @dp.message(CommandStart())
@@ -47,6 +47,8 @@ async def main() -> None:
     # Initialize Bot instance with a default parse mode which will be passed to all API calls
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     # And the run events dispatching
+    rout = Dispatcher()
+    dp.include_router(rout)
     await dp.start_polling(bot)
     
     
