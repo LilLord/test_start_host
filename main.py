@@ -65,13 +65,4 @@ async def main():
         )
 
 if __name__ == '__main__':
-    with st.empty(): # Modified to use empty container
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            asyncio.run(main())
-        except KeyboardInterrupt:
-            pass
-        finally:
-            print("Closing Loop")
-            loop.close()
+    asyncio.run(main())
