@@ -55,7 +55,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    
-    loop.run_until_complete(main())
+    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+    loop.run_until_complete(dp.start_polling(bot, loop=loop))
 
     loop.close()
