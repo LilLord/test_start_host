@@ -54,5 +54,5 @@ def start():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     t1 = threading.Thread(target=start, daemon=True)
-    t1.join()
     t1.start()
+    t1.join()
