@@ -13,10 +13,10 @@ from aiogram.utils.markdown import hbold
 # Bot token can be obtained via https://t.me/BotFather
 TOKEN = "6050835358:AAFhyCX-Sb2HNlajHr2VdV8XVpMLkA8I7BE"
 # All handlers should be attached to the Router (or Dispatcher)
-dp = Router()
+rt = Router()
 
 
-@dp.message(CommandStart())
+@rt.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
@@ -29,7 +29,7 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(f"Hello, {hbold(message.from_user.full_name)}!")
 
 
-@dp.message()
+@rt.message()
 async def echo_handler(message: types.Message) -> None:
     """
     Handler will forward receive a message back to the sender
@@ -43,35 +43,27 @@ async def echo_handler(message: types.Message) -> None:
         # But not all the types is supported to be copied so need to handle it
         await message.answer("Nice try!")
 
-async def main() -> None:
+async def start_bot() -> None:
     # Initialize Bot instance with a default parse mode which will be passed to all API calls
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     # And the run events dispatching
-    rout = Dispatcher()
-    rout.include_router(dp)
-    await rout.start_polling(bot, handle_as_tasks=False, handle_signals=False)
+    dp = Dispatcher()
+    dp.include_router(rt)
+    await dp.start_polling(bot, handle_as_tasks=False, handle_signals=False)
     
     
-async def secondWorker():
+async def collecting_data():
     while True:
-        time.sleep(1)
+        await asyncio.sleep(1)
         print("11231233")
 
 async def start_main():
-    await(asyncio.gather(
-        main,
-        secondWorker()
+    await( asyncio.gather(
+        start_bot(),
+        collecting_data()
             )
-        )
+    )
+        
 
 if __name__ == '__main__':
-    with st.empty(): # Modified to use empty container
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            asyncio.run(start_main())
-        except KeyboardInterrupt:
-            pass
-        finally:
-            print("Closing Loop")
-            loop.close()
+    asyncio.run(start_main())
