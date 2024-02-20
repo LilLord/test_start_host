@@ -66,4 +66,4 @@ async def start_main():
         
 
 if __name__ == '__main__':
-    print("1")
+    st.write("1")
