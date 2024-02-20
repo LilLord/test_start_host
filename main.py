@@ -48,8 +48,8 @@ async def main() -> None:
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     # And the run events dispatching
     rout = Dispatcher()
-    dp.include_router(rout)
-    await dp.start_polling(bot)
+    rout.include_router(dp)
+    await rout.start_polling(bot)
     
     
 async def secondWorker():
