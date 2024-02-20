@@ -53,6 +53,9 @@ def start():
     asyncio.run(main())
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    t1 = threading.Thread(target=start, daemon=True)
-    t1.start()
-    t1.join()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    
+    loop.run_until_complete(main())
+
+    loop.close()
