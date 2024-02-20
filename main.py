@@ -49,7 +49,10 @@ async def main() -> None:
     # And the run events dispatching
     await dp.start_polling(bot)
 
-
+def start():
+    asyncio.run(main())
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(main())
+    t1 = threading.Thread(target=start, daemon=True)
+    t1.join()
+    t1.start()
