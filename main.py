@@ -63,5 +63,4 @@ async def main() -> None:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-    dp.startup.register(start_schedule_controller)
     asyncio.run(dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types()))
