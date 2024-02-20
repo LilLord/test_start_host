@@ -13,7 +13,8 @@ from aiogram.utils.markdown import hbold
 # Bot token can be obtained via https://t.me/BotFather
 TOKEN = "6050835358:AAFhyCX-Sb2HNlajHr2VdV8XVpMLkA8I7BE"
 # All handlers should be attached to the Router (or Dispatcher)
-dp = Router()
+dp = Dispatcher()
+bot = Bot(token=TOKEN)
 
 
 @dp.message(CommandStart())
@@ -65,13 +66,4 @@ async def start_main():
         )
 
 if __name__ == '__main__':
-    with st.empty(): # Modified to use empty container
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            asyncio.run(main())
-        except KeyboardInterrupt:
-            pass
-        finally:
-            print("Closing Loop")
-            loop.close()
+    dp.run_polling(bot)
