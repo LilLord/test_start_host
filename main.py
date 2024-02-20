@@ -57,7 +57,7 @@ async def secondWorker():
         time.sleep(1)
         print("11231233")
 
-async def main():
+async def start_main():
     await(asyncio.gather(
         main,
         secondWorker()
@@ -65,4 +65,13 @@ async def main():
         )
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    with st.empty(): # Modified to use empty container
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            asyncio.run(start_main())
+        except KeyboardInterrupt:
+            pass
+        finally:
+            print("Closing Loop")
+            loop.close()
