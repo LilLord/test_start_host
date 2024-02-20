@@ -69,7 +69,7 @@ if __name__ == '__main__':
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
-            asyncio.run(start_main())
+            asyncio.run(main())
         except KeyboardInterrupt:
             pass
         finally:
