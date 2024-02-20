@@ -66,7 +66,7 @@ async def main():
 
 if __name__ == '__main__':
     with st.empty(): # Modified to use empty container
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
             asyncio.run(main())
